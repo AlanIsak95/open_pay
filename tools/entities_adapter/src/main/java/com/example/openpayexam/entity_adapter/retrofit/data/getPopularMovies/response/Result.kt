@@ -1,6 +1,6 @@
 package com.example.openpayexam.entity_adapter.retrofit.data.getPopularMovies.response
 
-import com.example.openpayexam.entity_adapter.app.entity.get_popular_movies.response.PopularMovie
+import com.example.openpayexam.entity_adapter.app.entity.movies.MovieEntity
 
 data class Result(
     val adult: Boolean?,
@@ -19,8 +19,8 @@ data class Result(
     val vote_count: Int?
 ){
 
-    fun toPopularMovie():PopularMovie{
-        return PopularMovie(
+    fun toMovie(): MovieEntity {
+        return MovieEntity(
             adult = adult,
             backdrop_path = backdrop_path,
             genre_ids = genre_ids,

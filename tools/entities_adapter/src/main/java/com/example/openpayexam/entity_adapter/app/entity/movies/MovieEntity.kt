@@ -1,6 +1,6 @@
-package com.example.openpayexam.entity_adapter.app.entity.get_popular_movies.response
+package com.example.openpayexam.entity_adapter.app.entity.movies
 
-data class PopularMovie(
+data class MovieEntity(
     val adult: Boolean?,
     val backdrop_path: String?,
     val genre_ids: List<Int>?,

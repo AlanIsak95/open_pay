@@ -22,11 +22,8 @@ class RetrofitConnection {
         .build()
 
 
-    val getPopularMovies  = retrofit.create(IGetPopularMovies::class.java)
-    val getTopRatedMovies = retrofit.create(IGetTopRatedMovies::class.java)
-    val getUpomingMovies = retrofit.create(IGetUpComingMovies::class.java)
-
-
-
+    val getPopularMovies:  IGetPopularMovies  = retrofit.create(IGetPopularMovies::class.java)
+    val getTopRatedMovies: IGetTopRatedMovies = retrofit.create(IGetTopRatedMovies::class.java)
+    val getUpcomingMovies: IGetUpComingMovies = retrofit.create(IGetUpComingMovies::class.java)
 
 }
