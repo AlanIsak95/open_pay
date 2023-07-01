@@ -5,13 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.openpayexam.dashboard.R
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.openpayexam.dashboard.databinding.FragmentHomeBinding
+import com.example.openpayexam.dashboard.ui.home.view_model.HomeViewModel
 
 class HomeFragment : Fragment() {
 
     /* */
     private lateinit var binding : FragmentHomeBinding
+
+    /* */
+    private val homeViewModel : HomeViewModel by viewModels()
 
     /** */
     override fun onCreateView(
@@ -27,6 +32,29 @@ class HomeFragment : Fragment() {
     /** */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setUpListeners()
+        setOnClickListeners()
+
+    }
+
+    /** */
+    private fun setOnClickListeners() {
+
+        /* */
+        binding.fragmentHomeBtnDownload.setOnClickListener {
+            homeViewModel.getPopularMovies()
+        }
+
+    }
+
+    /** */
+    private fun setUpListeners() {
+
+        /* */
+        homeViewModel.userLiveData.observe(viewLifecycleOwner) {
+            binding.fragmentHomeBtnDownload.isEnabled = false
+        }
 
     }
 

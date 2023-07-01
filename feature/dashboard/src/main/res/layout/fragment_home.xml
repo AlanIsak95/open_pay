@@ -25,12 +25,12 @@
                 style="@style/Title"
                 android:text="Descarga la información"
                 android:layout_marginBottom="24dp"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_home_download"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_home_btn_download"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/fragment_home_download"
+                android:id="@+id/fragment_home_btn_download"
                 style="@style/ButtonPrimary"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
