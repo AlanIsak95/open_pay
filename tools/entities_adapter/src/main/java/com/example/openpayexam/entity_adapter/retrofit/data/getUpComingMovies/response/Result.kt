@@ -1,11 +1,10 @@
 package com.example.openpayexam.entity_adapter.retrofit.data.getUpComingMovies.response
 
-import com.example.openpayexam.entity_adapter.app.entity.movies.MovieEntity
+import com.example.openpayexam.entity_adapter.app.entity.movies.Movie
 
 data class Result(
     val adult: Boolean?,
     val backdrop_path: String?,
-    val genre_ids: List<Int>?,
     val id: Int?,
     val original_language: String?,
     val original_title: String?,
@@ -18,11 +17,11 @@ data class Result(
     val vote_average: Double?,
     val vote_count: Int?
 ){
-    fun toMovie(): MovieEntity {
-        return MovieEntity(
+    /** */
+    fun toMovie(): Movie {
+        return Movie(
             adult = adult,
             backdrop_path = backdrop_path,
-            genre_ids = genre_ids,
             id = id,
             original_language = original_language,
             original_title= original_title,
@@ -36,4 +35,5 @@ data class Result(
             vote_count = vote_count
         )
     }
+
 }

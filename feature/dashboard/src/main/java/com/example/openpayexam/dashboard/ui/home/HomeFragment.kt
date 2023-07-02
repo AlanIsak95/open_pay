@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.openpayexam.dashboard.databinding.FragmentHomeBinding
 import com.example.openpayexam.dashboard.ui.home.status.GetMoviesUIStatus
+import com.example.openpayexam.dashboard.ui.home.status.SetMoviesUIStatus
 import com.example.openpayexam.dashboard.ui.home.view_model.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -59,10 +60,39 @@ class HomeFragment : Fragment() {
                 GetMoviesUIStatus.Loading -> binding.fragmentHomeBtnDownload.visibility = View.INVISIBLE
                 GetMoviesUIStatus.HideLoading -> binding.fragmentHomeBtnDownload.visibility = View.VISIBLE
                 is GetMoviesUIStatus.Failure -> Toast.makeText(requireContext(),it.message,Toast.LENGTH_LONG).show()
-                is GetMoviesUIStatus.SUCCESS -> Toast.makeText(requireContext(),"Informacion Descargada",Toast.LENGTH_SHORT).show()
+                is GetMoviesUIStatus.SUCCESS -> saveData(it)
             }
 
         }
+
+        /* */
+        homeViewModel.saveMoviesLiveData.observe(viewLifecycleOwner){
+
+            when(it){
+                SetMoviesUIStatus.Loading -> Toast.makeText(requireContext(),"Guardando datos en DB",Toast.LENGTH_SHORT).show()
+                SetMoviesUIStatus.HideLoading -> Toast.makeText(requireContext(),"Hide load",Toast.LENGTH_SHORT).show()
+                is SetMoviesUIStatus.Failure -> Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                SetMoviesUIStatus.Success -> Toast.makeText(requireContext(),"EXXIITOO",Toast.LENGTH_LONG).show()
+            }
+
+        }
+
+    }
+
+    /** */
+    private fun saveData(it: GetMoviesUIStatus.SUCCESS) {
+
+        val popularMoviesList = it.popularList
+        val topRatedMoviesList = it.topRatedList
+        val upComingList = it.upcomingList
+
+        /* */
+        homeViewModel.saveDataMovie(
+            popularMoviesList = popularMoviesList,
+            topRatedMoviesList = topRatedMoviesList,
+            upComingMoviesList = upComingList,
+            context = requireContext()
+        )
 
     }
 
