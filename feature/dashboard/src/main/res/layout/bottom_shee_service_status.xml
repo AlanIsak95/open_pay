@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/bottom_sheet_service_status_title_retrofit"
+        style="@style/Title"
+        android:layout_marginTop="44dp"
+        android:text="Retrofit estatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bottom_sheet_service_status_subtitle_retrofit"
+        style="@style/Subtitle2"
+        android:layout_marginTop="20dp"
+        tools:text="Subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_service_status_title_retrofit" />
+
+    <TextView
+        android:id="@+id/bottom_sheet_service_status_title_room"
+        style="@style/Title"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_service_status_subtitle_retrofit"
+        android:text="Room status" />
+
+    <TextView
+        android:id="@+id/bottom_sheet_service_status_subtitle_room"
+        style="@style/Subtitle2"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_service_status_title_room"
+        tools:text="Room" />
+
+    <Button
+        android:id="@+id/bottom_sheet_service_status_btn_ok"
+        style="@style/ButtonPrimary"
+        android:layout_marginTop="24dp"
+        android:text="OK"
+        android:visibility="gone"
+        tools:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_service_status_subtitle_room" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

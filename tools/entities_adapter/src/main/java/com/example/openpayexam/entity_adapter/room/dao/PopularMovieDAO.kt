@@ -14,5 +14,8 @@ interface PopularMovieDAO {
     
     @Query("Select * from popular_movies")
     suspend fun getAllMovies():List<PopularMovieEntity>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM popular_movies LIMIT 1)")
+    suspend fun hasValues(): Boolean
     
 }

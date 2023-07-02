@@ -15,4 +15,7 @@ interface UpComingMovieDAO {
     @Query("Select * from upcoming_movies")
     suspend fun getAllMovies():List<UpComingMovieEntity>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM upcoming_movies LIMIT 1)")
+    suspend fun hasValues(): Boolean
+
 }

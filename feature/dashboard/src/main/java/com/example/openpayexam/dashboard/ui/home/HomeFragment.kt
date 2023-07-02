@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.openpayexam.dashboard.R
 import com.example.openpayexam.dashboard.databinding.FragmentHomeBinding
+import com.example.openpayexam.dashboard.status.MoviesTable
 import com.example.openpayexam.dashboard.ui.home.status.GetMoviesUIStatus
 import com.example.openpayexam.dashboard.ui.home.status.SetMoviesUIStatus
 import com.example.openpayexam.dashboard.ui.home.view_model.HomeViewModel
@@ -18,7 +20,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
 
     /* */
-    private val homeViewModel : HomeViewModel by viewModels()
+    private val homeViewModel : HomeViewModel by activityViewModels()
 
     /** */
     override fun onCreateView(
@@ -46,6 +48,7 @@ class HomeFragment : Fragment() {
         /* */
         binding.fragmentHomeBtnDownload.setOnClickListener {
             homeViewModel.getPopularMovies()
+            findNavController().navigate(R.id.action_homeFragment_to_alertServiceBottomSheet)
         }
 
     }
@@ -57,9 +60,9 @@ class HomeFragment : Fragment() {
         homeViewModel.getMovieUIStatusLiveData.observe(viewLifecycleOwner) {
 
             when(it){
-                GetMoviesUIStatus.Loading -> binding.fragmentHomeBtnDownload.visibility = View.INVISIBLE
-                GetMoviesUIStatus.HideLoading -> binding.fragmentHomeBtnDownload.visibility = View.VISIBLE
-                is GetMoviesUIStatus.Failure -> Toast.makeText(requireContext(),it.message,Toast.LENGTH_LONG).show()
+                GetMoviesUIStatus.Loading -> binding.fragmentHomeBtnDownload.isEnabled = false
+                GetMoviesUIStatus.HideLoading -> {/* BY PASS*/ }
+                is GetMoviesUIStatus.Failure -> binding.fragmentHomeBtnDownload.isEnabled = true
                 is GetMoviesUIStatus.SUCCESS -> saveData(it)
             }
 
@@ -69,12 +72,28 @@ class HomeFragment : Fragment() {
         homeViewModel.saveMoviesLiveData.observe(viewLifecycleOwner){
 
             when(it){
-                SetMoviesUIStatus.Loading -> Toast.makeText(requireContext(),"Guardando datos en DB",Toast.LENGTH_SHORT).show()
-                SetMoviesUIStatus.HideLoading -> Toast.makeText(requireContext(),"Hide load",Toast.LENGTH_SHORT).show()
-                is SetMoviesUIStatus.Failure -> Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
-                SetMoviesUIStatus.Success -> Toast.makeText(requireContext(),"EXXIITOO",Toast.LENGTH_LONG).show()
+                SetMoviesUIStatus.HideLoading ->
+                    binding.fragmentHomeBtnDownload.isEnabled = true
+                else ->{/* BY PASS */}
             }
 
+        }
+
+        /* */
+        homeViewModel.moviesTableStatusLiveData.observe(viewLifecycleOwner){
+            when(it){
+                MoviesTable.HAS_VALUES -> {
+                    binding.fragmentHomeBtnDownload.visibility = View.GONE
+                    binding.fragmentHomeTitle.visibility = View.VISIBLE
+                    binding.fragmentHomeTitle.text = "Los Datos ya se han guardado"
+                }
+                else -> {
+                    binding.fragmentHomeBtnDownload.visibility = View.VISIBLE
+                    binding.fragmentHomeTitle.text = "Descarga la informacion"
+                    binding.fragmentHomeTitle.visibility = View.VISIBLE
+
+                }
+            }
         }
 
     }
@@ -82,15 +101,11 @@ class HomeFragment : Fragment() {
     /** */
     private fun saveData(it: GetMoviesUIStatus.SUCCESS) {
 
-        val popularMoviesList = it.popularList
-        val topRatedMoviesList = it.topRatedList
-        val upComingList = it.upcomingList
-
         /* */
         homeViewModel.saveDataMovie(
-            popularMoviesList = popularMoviesList,
-            topRatedMoviesList = topRatedMoviesList,
-            upComingMoviesList = upComingList,
+            popularMoviesList = it.popularList,
+            topRatedMoviesList = it.topRatedList,
+            upComingMoviesList = it.upcomingList,
             context = requireContext()
         )
 

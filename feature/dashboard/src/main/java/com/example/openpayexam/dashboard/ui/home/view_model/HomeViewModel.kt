@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.openpayexam.dashboard.status.MoviesTable
 import com.example.openpayexam.dashboard.ui.home.status.GetMoviesUIStatus
 import com.example.openpayexam.dashboard.ui.home.status.SetMoviesUIStatus
 import com.example.openpayexam.entity_adapter.app.entity.movies.Movie
@@ -13,6 +14,7 @@ import com.example.openpayexam.entity_adapter.room.entity.status.SaveMovies
 import com.example.openpayexam.entity_adapter.tools.toEntityPopularMovieList
 import com.example.openpayexam.entity_adapter.tools.toEntityTopRatedMovieList
 import com.example.openpayexam.entity_adapter.tools.toEntityUpcomingMovieList
+import com.example.openpayexam.use_case.dashboard.get_data_exists.GetDataExistsUC
 import com.example.openpayexam.use_case.dashboard.get_popular_movies.GetPopularMoviesUC
 import com.example.openpayexam.use_case.dashboard.get_top_rated_movies.GetTopRatedMoviesUC
 import com.example.openpayexam.use_case.dashboard.get_upcoming_movies.GetUpComingMoviesUC
@@ -140,11 +142,32 @@ class HomeViewModel : ViewModel() {
 
             if (savePopularMoviesDeferredSuccess && saveTopRatedMoviesDeferredSuccess && saveUpcomingMoviesDeferredSuccess) {
                 _saveMoviesLiveData.value = SetMoviesUIStatus.Success
+                _moviesTableStatusLiveData.value = MoviesTable.HAS_VALUES
             }else
                 _saveMoviesLiveData.value = SetMoviesUIStatus.Failure(message = "Execution Error")
 
             _saveMoviesLiveData.value = SetMoviesUIStatus.HideLoading
 
+
+        }
+
+    }
+
+    /* */
+    private val _moviesTableStatusLiveData = MutableLiveData<MoviesTable>()
+    val moviesTableStatusLiveData: LiveData<MoviesTable> = _moviesTableStatusLiveData
+
+
+    fun validateTableData(context : Context){
+
+        viewModelScope.launch {
+
+            val result = GetDataExistsUC().invoke(context)
+
+            if (result)
+                _moviesTableStatusLiveData.value = MoviesTable.HAS_VALUES
+            else
+                _moviesTableStatusLiveData.value = MoviesTable.EMPTY
 
         }
 

@@ -15,4 +15,7 @@ interface TopRatedMovieDAO {
     @Query("Select * from top_rated_movies")
     suspend fun getAllMovies():List<TopRatedMovieEntity>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM top_rated_movies LIMIT 1)")
+    suspend fun hasValues(): Boolean
+
 }
