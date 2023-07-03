@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
 }
 
 android {
@@ -72,5 +73,9 @@ dependencies {
 
     //Card View
     implementation ("androidx.cardview:cardview:1.0.0")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
 
 }

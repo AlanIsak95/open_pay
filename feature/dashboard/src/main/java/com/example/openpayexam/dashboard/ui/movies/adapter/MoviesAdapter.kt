@@ -3,6 +3,9 @@ package com.example.openpayexam.dashboard.ui.movies.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.openpayexam.dashboard.databinding.ItemMovieBinding
 import com.example.openpayexam.entity_adapter.app.entity.movies.Movie
 
@@ -34,7 +37,13 @@ class MoviesAdapter(private val movies: List<Movie>)
         /* */
         fun bind(movie: Movie) {
 
-            //binding.itemMovieIvMovie.setImageDrawable()
+            val imageUrl = "https://image.tmdb.org/t/p/original/${movie.poster_path}"
+
+            Glide.with(binding.root)
+                .load(imageUrl)
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+                .into(binding.itemMovieIvMovie)
+
             binding.itemMovieTvTitle.text = movie.title
             binding.itemMovieTvSubtitle.text = movie.overview
 

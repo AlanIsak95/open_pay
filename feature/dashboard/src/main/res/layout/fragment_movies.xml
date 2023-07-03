@@ -8,6 +8,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -23,8 +24,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_movies_rv_popular"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="12dp"
             tools:itemCount="5"
             tools:listitem="@layout/item_movie"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,10 +46,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_movies_rv_top_rated"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             tools:itemCount="5"
+            android:layout_marginTop="12dp"
             tools:listitem="@layout/item_movie"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,10 +67,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_movies_rv_up_coming"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             tools:itemCount="5"
+            android:layout_marginTop="12dp"
             tools:listitem="@layout/item_movie"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
