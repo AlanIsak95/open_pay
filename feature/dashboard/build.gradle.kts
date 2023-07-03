@@ -66,9 +66,11 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
 
-    //
+    //Projects
     implementation(project(":use_case:dashboard"))
     implementation(project(":tools:entities_adapter"))
 
+    //Card View
+    implementation ("androidx.cardview:cardview:1.0.0")
 
 }

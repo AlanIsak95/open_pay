@@ -68,6 +68,64 @@ fun List<UpComingMovies>?.toUpComingList():List<Movie>{
 }
 
 /** */
+fun List<PopularMovieEntity>?.popularMoviesToMovieList():List<Movie>{
+
+    this?.let {
+
+        val popularList : MutableList<Movie> = mutableListOf()
+
+        it.forEach{item ->
+            popularList.add(item.toMovie())
+        }
+
+        return popularList
+
+    }?:run{
+        return mutableListOf()
+    }
+
+}
+
+/** */
+fun List<TopRatedMovieEntity>?.topRatedMoviesToMovieList():List<Movie>{
+
+    this?.let {
+
+        val popularList : MutableList<Movie> = mutableListOf()
+
+        it.forEach{item ->
+            popularList.add(item.toMovie())
+        }
+
+        return popularList
+
+    }?:run{
+        return mutableListOf()
+    }
+
+}
+
+/** */
+fun List<UpComingMovieEntity>?.upComingMoviesToMovieList():List<Movie>{
+
+    this?.let {
+
+        val popularList : MutableList<Movie> = mutableListOf()
+
+        it.forEach{item ->
+            popularList.add(item.toMovie())
+        }
+
+        return popularList
+
+    }?:run{
+        return mutableListOf()
+    }
+
+}
+
+
+/** */
 fun List<Movie>?.toEntityPopularMovieList():List<PopularMovieEntity>{
 
     this?.let {
